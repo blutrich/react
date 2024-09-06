@@ -1,0 +1,124 @@
+import React, { useState } from 'react';
+import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { User, Calendar, BarChart, Settings } from 'lucide-react';
+
+const ClimbingTrainingApp = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [userProfile, setUserProfile] = useState({
+    name: 'Alex',
+    grade: 'V6',
+    weight: 58,
+    height: 190,
+  });
+  const [assessment, setAssessment] = useState({
+    fingerStrength: 20,
+    pullUps: 30,
+    pushUps: 30,
+    toeToBar: 11,
+  });
+
+  const handleProfileChange = (e) => {
+    setUserProfile({ ...userProfile, [e.target.name]: e.target.value });
+  };
+
+  const handleAssessmentChange = (e) => {
+    setAssessment({ ...assessment, [e.target.name]: parseInt(e.target.value) });
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-4 bg-gray-100 min-h-screen">
+      <h1 className="text-2xl font-bold mb-4 text-center">ClimbStrong</h1>
+      <Tabs selectedIndex={activeTab} onSelect={index => setActiveTab(index)}>
+        <TabList className="flex justify-around mb-4">
+          <Tab><User size={24} /></Tab>
+          <Tab><Calendar size={24} /></Tab>
+          <Tab><BarChart size={24} /></Tab>
+          <Tab><Settings size={24} /></Tab>
+        </TabList>
+
+        <TabPanel>
+          <h2 className="text-xl font-semibold mb-2">Profile</h2>
+          <form className="space-y-2">
+            <div>
+              <label className="block text-sm font-medium">Name:</label>
+              <input type="text" name="name" value={userProfile.name} onChange={handleProfileChange} className="w-full p-1 border rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Current Grade:</label>
+              <input type="text" name="grade" value={userProfile.grade} onChange={handleProfileChange} className="w-full p-1 border rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Weight (kg):</label>
+              <input type="number" name="weight" value={userProfile.weight} onChange={handleProfileChange} className="w-full p-1 border rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Height (cm):</label>
+              <input type="number" name="height" value={userProfile.height} onChange={handleProfileChange} className="w-full p-1 border rounded" />
+            </div>
+          </form>
+        </TabPanel>
+
+        <TabPanel>
+          <h2 className="text-xl font-semibold mb-2">Training Program</h2>
+          <div className="space-y-2">
+            <div className="bg-white p-2 rounded shadow">
+              <h3 className="font-medium">Monday: Power and Technique</h3>
+              <ul className="list-disc list-inside text-sm">
+                <li>Campus Board: 3 sets of ladders</li>
+                <li>Limit Bouldering: 60 min</li>
+              </ul>
+            </div>
+            <div className="bg-white p-2 rounded shadow">
+              <h3 className="font-medium">Tuesday: Finger Strength and Core</h3>
+              <ul className="list-disc list-inside text-sm">
+                <li>Hangboard: 6 sets of 12s max hangs</li>
+                <li>Core Workout: Front levers, Toe-to-bar</li>
+              </ul>
+            </div>
+            {/* Add more days here */}
+          </div>
+        </TabPanel>
+
+        <TabPanel>
+          <h2 className="text-xl font-semibold mb-2">Progress Tracking</h2>
+          <form className="space-y-2">
+            <div>
+              <label className="block text-sm font-medium">Finger Strength (kg added):</label>
+              <input type="number" name="fingerStrength" value={assessment.fingerStrength} onChange={handleAssessmentChange} className="w-full p-1 border rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Pull-ups:</label>
+              <input type="number" name="pullUps" value={assessment.pullUps} onChange={handleAssessmentChange} className="w-full p-1 border rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Push-ups:</label>
+              <input type="number" name="pushUps" value={assessment.pushUps} onChange={handleAssessmentChange} className="w-full p-1 border rounded" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Toe-to-bar:</label>
+              <input type="number" name="toeToBar" value={assessment.toeToBar} onChange={handleAssessmentChange} className="w-full p-1 border rounded" />
+            </div>
+          </form>
+          <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Save Progress</button>
+        </TabPanel>
+
+        <TabPanel>
+          <h2 className="text-xl font-semibold mb-2">Settings</h2>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span>Dark Mode</span>
+              <input type="checkbox" className="toggle" />
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Notifications</span>
+              <input type="checkbox" className="toggle" checked />
+            </div>
+          </div>
+        </TabPanel>
+      </Tabs>
+    </div>
+  );
+};
+
+export default ClimbingTrainingApp;
